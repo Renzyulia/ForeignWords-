@@ -27,6 +27,8 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         self.mainPageView = mainPageView
         mainPageView.delegate = self
         
+        navigationController?.isNavigationBarHidden = true
+        
         view.addSubview(mainPageView)
         
         mainPageView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +48,11 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         let newWordView = NewWordView()
         self.newWordView = newWordView
         
+        navigationController?.isNavigationBarHidden = false
+        let backButton = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(didTapBackButton))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+        
         view.addSubview(newWordView)
         
         newWordView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +62,10 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
             newWordView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             newWordView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+    
+    @objc private func didTapBackButton() {
+        print("Back")
     }
     
     func didTapTrainingButton() {
