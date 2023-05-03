@@ -8,6 +8,8 @@
 import UIKit
 
 final class MainPageView: UIView {
+    weak var delegate: ViewDelegate?
+    
     private let newWordButton = Action(title: "New Word")
     private let trainingButton = Action(title: "Training")
     
@@ -25,6 +27,8 @@ final class MainPageView: UIView {
     }
     
     private func configureNewWordButton() {
+        newWordButton.addTarget(self, action: #selector(didTapNewWordButton), for: .touchUpInside)
+        
         addSubview(newWordButton)
         
         newWordButton.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +39,13 @@ final class MainPageView: UIView {
         ])
     }
     
+    @objc private func didTapNewWordButton() {
+        delegate?.didTapNewWordButton()
+    }
+    
     private func configureTrainingButton() {
+        trainingButton.addTarget(self, action: #selector(didTapTrainingButton), for: .touchUpInside)
+        
         addSubview(trainingButton)
         
         trainingButton.translatesAutoresizingMaskIntoConstraints = false
@@ -44,5 +54,9 @@ final class MainPageView: UIView {
             trainingButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 60),
             trainingButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -60)
         ])
+    }
+    
+    @objc private func didTapTrainingButton() {
+        delegate?.didTapTrainingButton()
     }
 }
