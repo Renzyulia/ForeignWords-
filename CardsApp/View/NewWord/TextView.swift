@@ -9,7 +9,7 @@ import UIKit
 
 final class TextView: UIView {
     private let placeholder: String
-    private let textField = UITextView()
+    private let textField = UITextField()
     
     init(placeholder: String) {
         self.placeholder = placeholder
@@ -26,7 +26,7 @@ final class TextView: UIView {
     
     private func configureTextView() {
         textField.placeholder = placeholder
-        textField.font = .systemFont(ofSize: 18)
+        textField.font = .systemFont(ofSize: 14)
         textField.textColor = .black
         textField.textAlignment = .left
         textField.layer.cornerRadius = 14.5
@@ -37,9 +37,9 @@ final class TextView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: topAnchor),
-            textField.leftAnchor.constraint(equalTo: leftAnchor),
+            textField.leftAnchor.constraint(equalTo: leftAnchor, constant: 5),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
-            textField.rightAnchor.constraint(equalTo: rightAnchor)
+            textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -5)
         ])
     }
 }
