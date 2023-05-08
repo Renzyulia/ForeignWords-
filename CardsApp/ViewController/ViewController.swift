@@ -45,8 +45,12 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     func showNewWordView() {
-        let newWordView = NewWordView()
+        let textViewDelegate = TextViewDelegate()
+        
+        let newWordView = NewWordView(textViewDelegate: textViewDelegate)
         self.newWordView = newWordView
+        
+        textViewDelegate.didAttach(to: newWordView.context.textView)
         
         navigationController?.isNavigationBarHidden = false
         let backButton = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(didTapBackButton))
@@ -76,4 +80,3 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         print("tapped")
     }
 }
-

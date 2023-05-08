@@ -8,7 +8,7 @@
 import UIKit
 
 final class ContextView: UIView {
-    private let textView = UITextView()
+    let textView = UITextView()
     
     init() {
         super.init(frame: .zero)
@@ -20,12 +20,9 @@ final class ContextView: UIView {
     }
     
     private func configureTextView() {
-        textView.placeholder  = "How the word can be used"
-        textView.font = .systemFont(ofSize: 14)
+        textView.font = .systemFont(ofSize: 16)
         textView.textColor = .black
         textView.textAlignment = .left
-        textView.layer.cornerRadius = 14.5
-        textView.layer.masksToBounds = true
         
         addSubview(textView)
         

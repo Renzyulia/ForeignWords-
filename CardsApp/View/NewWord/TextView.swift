@@ -26,19 +26,17 @@ final class TextView: UIView {
     
     private func configureTextView() {
         textField.placeholder = placeholder
-        textField.font = .systemFont(ofSize: 14)
+        textField.font = .systemFont(ofSize: 16)
         textField.textColor = .black
         textField.textAlignment = .left
-        textField.layer.cornerRadius = 14.5
-        textField.layer.masksToBounds = true
         
         addSubview(textField)
         
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             textField.leftAnchor.constraint(equalTo: leftAnchor, constant: 5),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -5)
         ])
     }
