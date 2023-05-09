@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Word)
-public class Word: NSManagedObject {
+@objc(Words)
+public class Words: NSManagedObject {
 
 }

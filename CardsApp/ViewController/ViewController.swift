@@ -79,7 +79,7 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     @objc private func didTapBackButton() {
-        print("Back")
+        model?.didTapBackButton()
     }
     
     func didTapTrainingButton() {

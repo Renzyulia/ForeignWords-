@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum ProficiencyLevels: String {
+    case unknownWord = "Unknown word"
+    case littleKnownWord = "Little known word"
+    case knownWord = "Known word"
+}
+
 final class Model {
     weak var delegate: ModelDelegate?
     
@@ -28,11 +34,12 @@ final class Model {
     
     func didTapSaveButton() {
         let coreDataContext = CoreData.shared.viewContext
-        let object = Word(context: coreDataContext)
+        let object = Words(context: coreDataContext)
         
         guard let newWord = newWord, let translation = translation else { return }
         object.newWord = newWord
         object.translation = translation
+        object.proficiencyLevel = ProficiencyLevels.unknownWord.rawValue
         
         if let context = context {
             object.context = context
@@ -44,5 +51,9 @@ final class Model {
         } catch {
             delegate?.showSavingError()
         }
+    }
+    
+    func didTapBackButton() {
+        delegate?.showMainPageView()
     }
 }

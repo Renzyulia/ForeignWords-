@@ -9,12 +9,13 @@
 import Foundation
 import CoreData
 
-extension Word {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Word> {
-        return NSFetchRequest<Word>(entityName: "Word")
+extension Words {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Words> {
+        return NSFetchRequest<Words>(entityName: "Words")
     }
 
     @NSManaged public var newWord: String
     @NSManaged public var translation: String
     @NSManaged public var context: String?
+    @NSManaged public var proficiencyLevel: String
 }
