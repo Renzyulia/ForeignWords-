@@ -8,8 +8,9 @@
 import UIKit
 
 final class TextView: UIView {
+    let textField = UITextField()
+    
     private let placeholder: String
-    private let textField = UITextField()
     
     init(placeholder: String) {
         self.placeholder = placeholder

@@ -10,6 +10,10 @@ import UIKit
 final class Model {
     weak var delegate: ModelDelegate?
     
+    var newWord: String? = nil
+    var translation: String? = nil
+    var context: String? = nil
+    
     func viewDidLoad() {
         delegate?.showMainPageView()
     }
@@ -20,5 +24,25 @@ final class Model {
     
     func didTapTrainingButton() {
         delegate?.showTrainingView()
+    }
+    
+    func didTapSaveButton() {
+        let coreDataContext = CoreData.shared.viewContext
+        let object = Word(context: coreDataContext)
+        
+        guard let newWord = newWord, let translation = translation else { return }
+        object.newWord = newWord
+        object.translation = translation
+        
+        if let context = context {
+            object.context = context
+        }
+        
+        do {
+            try coreDataContext.save()
+            delegate?.showNewWordView()
+        } catch {
+            delegate?.showSavingError()
+        }
     }
 }

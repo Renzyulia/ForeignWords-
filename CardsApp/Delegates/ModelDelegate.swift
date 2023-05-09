@@ -11,4 +11,5 @@ protocol ModelDelegate: AnyObject {
     func showMainPageView()
     func showNewWordView()
     func showTrainingView()
+    func showSavingError()
 }

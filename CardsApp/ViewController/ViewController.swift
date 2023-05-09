@@ -45,12 +45,22 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     func showNewWordView() {
-        let textViewDelegate = TextViewDelegate()
+        let newWordTextFieldDelegate = NewWordTextFieldDelegate()
+        let translationTextFieldDelegate = TranslationTextFieldDelegate()
+        let contextTextViewDelegate = ContextTextViewDelegate()
         
-        let newWordView = NewWordView(textViewDelegate: textViewDelegate)
+        let newWordView = NewWordView(
+            newWordTextFieldDelegate: newWordTextFieldDelegate,
+            translationTextFieldDelegate: translationTextFieldDelegate,
+            contextTextViewDelegate: contextTextViewDelegate)
         self.newWordView = newWordView
+        newWordView.delegate = self
         
-        textViewDelegate.didAttach(to: newWordView.context.textView)
+        contextTextViewDelegate.didAttach(to: newWordView.context.textView)
+        
+        newWordTextFieldDelegate.delegate = model
+        translationTextFieldDelegate.delegate = model
+        contextTextViewDelegate.delegate = model
         
         navigationController?.isNavigationBarHidden = false
         let backButton = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(didTapBackButton))
@@ -78,5 +88,15 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     
     func showTrainingView() {
         print("tapped")
+    }
+    
+    func didTapSaveButton() {
+        model?.didTapSaveButton()
+    }
+    
+    func showSavingError() {
+        let alert = UIAlertController(title: nil, message: "Ошибка сохранения данных", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G320" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Word" representedClassName="Word" syncable="YES">
+        <attribute name="context" optional="YES" attributeType="String"/>
+        <attribute name="newWord" attributeType="String"/>
+        <attribute name="translation" attributeType="String"/>
+    </entity>
+</model>

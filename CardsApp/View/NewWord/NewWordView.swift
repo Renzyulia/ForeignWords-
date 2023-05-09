@@ -8,15 +8,20 @@
 import UIKit
 
 final class NewWordView: UIView {
-    let textViewDelegate: UITextViewDelegate
+    let newWordTextFieldDelegate: UITextFieldDelegate
+    let translationTextFieldDelegate: UITextFieldDelegate
+    let contextTextViewDelegate: UITextViewDelegate
     let context = ContextView()
+    weak var delegate: ViewDelegate?
     
     private let newWord = TextView(placeholder: "New Word")
     private let translation = TextView(placeholder: "Translation")
     private let saveButton = Action(title: "Save")
     
-    init(textViewDelegate: UITextViewDelegate) {
-        self.textViewDelegate = textViewDelegate
+    init(newWordTextFieldDelegate: UITextFieldDelegate, translationTextFieldDelegate: UITextFieldDelegate, contextTextViewDelegate: UITextViewDelegate) {
+        self.newWordTextFieldDelegate = newWordTextFieldDelegate
+        self.translationTextFieldDelegate = translationTextFieldDelegate
+        self.contextTextViewDelegate = contextTextViewDelegate
         
         super.init(frame: .zero)
         
@@ -33,6 +38,7 @@ final class NewWordView: UIView {
     }
     
     private func configureNewWordTextView() {
+        newWord.textField.delegate = newWordTextFieldDelegate
         newWord.layer.cornerRadius = 10
         newWord.layer.masksToBounds = true
         
@@ -47,6 +53,7 @@ final class NewWordView: UIView {
     }
     
     private func configureTranslationTextView() {
+        translation.textField.delegate = translationTextFieldDelegate
         translation.layer.cornerRadius = 10
         translation.layer.masksToBounds = true
         
@@ -61,7 +68,7 @@ final class NewWordView: UIView {
     }
     
     private func configureContextTextView() {
-        context.textView.delegate = textViewDelegate
+        context.textView.delegate = contextTextViewDelegate
         context.layer.cornerRadius = 10
         context.layer.masksToBounds = true
         
@@ -78,6 +85,8 @@ final class NewWordView: UIView {
     }
     
     private func configureSaveButton() {
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        
         addSubview(saveButton)
         
         saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -87,5 +96,9 @@ final class NewWordView: UIView {
             saveButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 70),
             saveButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -70)
         ])
+    }
+    
+    @objc private func didTapSaveButton() {
+        delegate?.didTapSaveButton()
     }
 }

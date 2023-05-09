@@ -10,4 +10,5 @@ import UIKit
 protocol ViewDelegate: AnyObject {
     func didTapNewWordButton()
     func didTapTrainingButton()
+    func didTapSaveButton()
 }
