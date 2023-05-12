@@ -14,12 +14,15 @@
 		A347A00D2A09729500F94761 /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A347A00B2A09729500F94761 /* Word+CoreDataProperties.swift */; };
 		A347A00F2A0972F400F94761 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A347A00E2A0972F400F94761 /* CoreData.swift */; };
 		A347A0112A09754E00F94761 /* TextFieldAndTextViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A347A0102A09754E00F94761 /* TextFieldAndTextViewDelegates.swift */; };
+		A37898BD2A0AD5570068DCE9 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37898BC2A0AD5570068DCE9 /* TrainingView.swift */; };
+		A37898BF2A0AD5E90068DCE9 /* WordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37898BE2A0AD5E90068DCE9 /* WordCardView.swift */; };
+		A37898C52A0D0BD80068DCE9 /* WordDetailsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37898C42A0D0BD80068DCE9 /* WordDetailsCardView.swift */; };
 		A3840B6C29F00228004B77D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B6B29F00228004B77D3 /* AppDelegate.swift */; };
 		A3840B6E29F00228004B77D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B6D29F00228004B77D3 /* SceneDelegate.swift */; };
 		A3840B7029F00228004B77D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B6F29F00228004B77D3 /* ViewController.swift */; };
 		A3840B7529F0022A004B77D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3840B7429F0022A004B77D3 /* Assets.xcassets */; };
 		A3840B7829F0022A004B77D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3840B7629F0022A004B77D3 /* LaunchScreen.storyboard */; };
-		A3840B8129F003EF004B77D3 /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8029F003EF004B77D3 /* MainPageView.swift */; };
+		A3840B8129F003EF004B77D3 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8029F003EF004B77D3 /* MenuView.swift */; };
 		A3840B8329F00778004B77D3 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8229F00778004B77D3 /* ActionButton.swift */; };
 		A3840B8829F0104D004B77D3 /* NewWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8729F0104D004B77D3 /* NewWordView.swift */; };
 		A3840B8A29F010AD004B77D3 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8929F010AD004B77D3 /* TextView.swift */; };
@@ -35,6 +38,9 @@
 		A347A00B2A09729500F94761 /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A347A00E2A0972F400F94761 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		A347A0102A09754E00F94761 /* TextFieldAndTextViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAndTextViewDelegates.swift; sourceTree = "<group>"; };
+		A37898BC2A0AD5570068DCE9 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
+		A37898BE2A0AD5E90068DCE9 /* WordCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCardView.swift; sourceTree = "<group>"; };
+		A37898C42A0D0BD80068DCE9 /* WordDetailsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailsCardView.swift; sourceTree = "<group>"; };
 		A3840B6829F00228004B77D3 /* CardsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3840B6B29F00228004B77D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3840B6D29F00228004B77D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +48,7 @@
 		A3840B7429F0022A004B77D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3840B7729F0022A004B77D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3840B7929F0022A004B77D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3840B8029F003EF004B77D3 /* MainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
+		A3840B8029F003EF004B77D3 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A3840B8229F00778004B77D3 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		A3840B8729F0104D004B77D3 /* NewWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordView.swift; sourceTree = "<group>"; };
 		A3840B8929F010AD004B77D3 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
@@ -98,14 +104,6 @@
 			path = InterfaceElements;
 			sourceTree = "<group>";
 		};
-		A347A0052A096FE700F94761 /* InterfaceElements */ = {
-			isa = PBXGroup;
-			children = (
-				A3840B8229F00778004B77D3 /* ActionButton.swift */,
-			);
-			path = InterfaceElements;
-			sourceTree = "<group>";
-		};
 		A347A0062A0971E800F94761 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +113,32 @@
 				A347A00E2A0972F400F94761 /* CoreData.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		A37898BB2A0A9D870068DCE9 /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				A37898C02A0CE2BD0068DCE9 /* InterfaceElements */,
+				A37898BC2A0AD5570068DCE9 /* TrainingView.swift */,
+			);
+			path = Training;
+			sourceTree = "<group>";
+		};
+		A37898C02A0CE2BD0068DCE9 /* InterfaceElements */ = {
+			isa = PBXGroup;
+			children = (
+				A37898BE2A0AD5E90068DCE9 /* WordCardView.swift */,
+				A37898C42A0D0BD80068DCE9 /* WordDetailsCardView.swift */,
+			);
+			path = InterfaceElements;
+			sourceTree = "<group>";
+		};
+		A37898C32A0CED340068DCE9 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				A3840B8229F00778004B77D3 /* ActionButton.swift */,
+			);
+			path = CommonViews;
 			sourceTree = "<group>";
 		};
 		A3840B5F29F00228004B77D3 = {
@@ -136,6 +160,7 @@
 		A3840B6A29F00228004B77D3 /* CardsApp */ = {
 			isa = PBXGroup;
 			children = (
+				A37898C32A0CED340068DCE9 /* CommonViews */,
 				A347A0062A0971E800F94761 /* CoreData */,
 				A347A0012A09597E00F94761 /* Delegates */,
 				A3840B8529F00FF8004B77D3 /* View */,
@@ -148,20 +173,20 @@
 			path = CardsApp;
 			sourceTree = "<group>";
 		};
-		A3840B7F29F003BD004B77D3 /* MainPage */ = {
+		A3840B7F29F003BD004B77D3 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				A347A0052A096FE700F94761 /* InterfaceElements */,
-				A3840B8029F003EF004B77D3 /* MainPageView.swift */,
+				A3840B8029F003EF004B77D3 /* MenuView.swift */,
 			);
-			path = MainPage;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		A3840B8529F00FF8004B77D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A37898BB2A0A9D870068DCE9 /* Training */,
 				A3840B8629F0100D004B77D3 /* NewWord */,
-				A3840B7F29F003BD004B77D3 /* MainPage */,
+				A3840B7F29F003BD004B77D3 /* Menu */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -245,8 +270,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A37898C52A0D0BD80068DCE9 /* WordDetailsCardView.swift in Sources */,
 				A33214372A0262AD00CB6C77 /* ViewDelegate.swift in Sources */,
 				A3840B8A29F010AD004B77D3 /* TextView.swift in Sources */,
+				A37898BD2A0AD5570068DCE9 /* TrainingView.swift in Sources */,
 				A347A00C2A09729500F94761 /* Word+CoreDataClass.swift in Sources */,
 				A347A0112A09754E00F94761 /* TextFieldAndTextViewDelegates.swift in Sources */,
 				A347A0092A09720F00F94761 /* CoreDataModel.xcdatamodeld in Sources */,
@@ -254,9 +281,10 @@
 				A3840B7029F00228004B77D3 /* ViewController.swift in Sources */,
 				A3840B8829F0104D004B77D3 /* NewWordView.swift in Sources */,
 				A347A00D2A09729500F94761 /* Word+CoreDataProperties.swift in Sources */,
+				A37898BF2A0AD5E90068DCE9 /* WordCardView.swift in Sources */,
 				A3840B6C29F00228004B77D3 /* AppDelegate.swift in Sources */,
 				A3840B8C29F012A0004B77D3 /* ContextView.swift in Sources */,
-				A3840B8129F003EF004B77D3 /* MainPageView.swift in Sources */,
+				A3840B8129F003EF004B77D3 /* MenuView.swift in Sources */,
 				A347A00F2A0972F400F94761 /* CoreData.swift in Sources */,
 				A3840B6E29F00228004B77D3 /* SceneDelegate.swift in Sources */,
 				A3C402AB2A029355007491CD /* ModelDelegate.swift in Sources */,

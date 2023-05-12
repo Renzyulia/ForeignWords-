@@ -16,7 +16,7 @@ final class NewWordView: UIView {
     
     private let newWord = TextView(placeholder: "New Word")
     private let translation = TextView(placeholder: "Translation")
-    private let saveButton = Action(title: "Save")
+    private let saveButton = ActionButton(title: "Save")
     
     init(newWordTextFieldDelegate: UITextFieldDelegate, translationTextFieldDelegate: UITextFieldDelegate, contextTextViewDelegate: UITextViewDelegate) {
         self.newWordTextFieldDelegate = newWordTextFieldDelegate

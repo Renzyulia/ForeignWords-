@@ -10,6 +10,7 @@ import UIKit
 protocol ModelDelegate: AnyObject {
     func showMainPageView()
     func showNewWordView()
-    func showTrainingView()
+    func showTrainingView(for: String, translation: String, context: String)
+    func showWordDetailsView()
     func showSavingError()
 }

@@ -9,8 +9,9 @@ import UIKit
 
 class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     var model: Model? = nil
-    var mainPageView: MainPageView? = nil
+    var menuView: MenuView? = nil
     var newWordView: NewWordView? = nil
+    var trainingView: TrainingView? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,20 +24,20 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     func showMainPageView() {
-        let mainPageView = MainPageView()
-        self.mainPageView = mainPageView
-        mainPageView.delegate = self
+        let menuView = MenuView()
+        self.menuView = menuView
+        menuView.delegate = self
         
         navigationController?.isNavigationBarHidden = true
         
-        view.addSubview(mainPageView)
+        view.addSubview(menuView)
         
-        mainPageView.translatesAutoresizingMaskIntoConstraints = false
+        menuView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainPageView.topAnchor.constraint(equalTo: view.topAnchor),
-            mainPageView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            mainPageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mainPageView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            menuView.topAnchor.constraint(equalTo: view.topAnchor),
+            menuView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            menuView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            menuView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
     
@@ -45,6 +46,8 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     func showNewWordView() {
+        configureNavigationBar()
+        
         let newWordTextFieldDelegate = NewWordTextFieldDelegate()
         let translationTextFieldDelegate = TranslationTextFieldDelegate()
         let contextTextViewDelegate = ContextTextViewDelegate()
@@ -62,11 +65,6 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         translationTextFieldDelegate.delegate = model
         contextTextViewDelegate.delegate = model
         
-        navigationController?.isNavigationBarHidden = false
-        let backButton = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(didTapBackButton))
-        backButton.tintColor = .black
-        navigationItem.leftBarButtonItem = backButton
-        
         view.addSubview(newWordView)
         
         newWordView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,16 +76,26 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         ])
     }
     
-    @objc private func didTapBackButton() {
-        model?.didTapBackButton()
-    }
-    
     func didTapTrainingButton() {
         model?.didTapTrainingButton()
     }
     
-    func showTrainingView() {
-        print("tapped")
+    func showTrainingView(for word: String, translation: String, context: String) {
+        configureNavigationBar()
+        
+        let trainingView = TrainingView(wordForTraining: word, translation: translation, context: context)
+        self.trainingView = trainingView
+        trainingView.delegate = self
+        
+        view.addSubview(trainingView)
+        
+        trainingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            trainingView.topAnchor.constraint(equalTo: view.topAnchor),
+            trainingView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            trainingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            trainingView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
     }
     
     func didTapSaveButton() {
@@ -98,5 +106,25 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         let alert = UIAlertController(title: nil, message: "Ошибка сохранения данных", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+    }
+    
+    func didTapOnTrainingdView() {
+        model?.didTapOnTrainingView()
+    }
+    
+    func showWordDetailsView() {
+        trainingView?.showDetails()
+    }
+    
+    private func configureNavigationBar() {
+        navigationController?.isNavigationBarHidden = false
+        
+        let backButton = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(didTapBackButton))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc private func didTapBackButton() {
+        model?.didTapBackButton()
     }
 }

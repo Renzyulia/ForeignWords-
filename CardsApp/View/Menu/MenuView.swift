@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class MainPageView: UIView {
+final class MenuView: UIView {
     weak var delegate: ViewDelegate?
     
-    private let newWordButton = Action(title: "New Word")
-    private let trainingButton = Action(title: "Training")
+    private let newWordButton = ActionButton(title: "New Word")
+    private let trainingButton = ActionButton(title: "Training")
     
     init() {
         super.init(frame: .zero)

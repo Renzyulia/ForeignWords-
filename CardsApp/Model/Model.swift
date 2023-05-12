@@ -29,7 +29,11 @@ final class Model {
     }
     
     func didTapTrainingButton() {
-        delegate?.showTrainingView()
+        //здесь достаем случайным образом слово
+        let word = "Hello"
+        let translation = "Привет"
+        let context = "Hello, Julia, Hello, Julia, Hello, Julia, Hello, Julia, Hello, Julia, Hello, Julia, Hello, Julia, Hello, Julia, Hello, Julia"
+        delegate?.showTrainingView(for: word, translation: translation, context: context)
     }
     
     func didTapSaveButton() {
@@ -55,5 +59,9 @@ final class Model {
     
     func didTapBackButton() {
         delegate?.showMainPageView()
+    }
+    
+    func didTapOnTrainingView() {
+        delegate?.showWordDetailsView()
     }
 }

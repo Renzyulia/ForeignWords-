@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class Action: UIControl {
+final class ActionButton: UIControl {
     private let title: String
     private let label = UILabel()
     
