@@ -42,14 +42,18 @@ final class ContextTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.attributedText = NSAttributedString(" ")
+        textView.attributedText = NSAttributedString("")
+        textView.textColor = .black
+        textView.font = .systemFont(ofSize: 16)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.attributedText == NSAttributedString(" ") {
+        if textView.text == "" {
             textView.attributedText = placeholder
-        } else {
-            delegate?.context = textView.text
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        delegate?.context = textView.text
     }
 }

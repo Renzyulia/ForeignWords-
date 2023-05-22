@@ -76,6 +76,16 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         ])
     }
     
+    func didTapSaveButton() {
+        model?.didTapSaveButton()
+    }
+    
+    func showSavingError() {
+        let alert = UIAlertController(title: nil, message: "Ошибка сохранения данных", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
     func didTapTrainingButton() {
         model?.didTapTrainingButton()
     }
@@ -98,12 +108,8 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         ])
     }
     
-    func didTapSaveButton() {
-        model?.didTapSaveButton()
-    }
-    
-    func showSavingError() {
-        let alert = UIAlertController(title: nil, message: "Ошибка сохранения данных", preferredStyle: .alert)
+    func showNoSavedWordsError() {
+        let alert = UIAlertController(title: nil, message: "Вы еще не добавили ни одного слова для тренировки", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }

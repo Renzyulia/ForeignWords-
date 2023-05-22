@@ -28,6 +28,7 @@
 		A3840B8A29F010AD004B77D3 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8929F010AD004B77D3 /* TextView.swift */; };
 		A3840B8C29F012A0004B77D3 /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3840B8B29F012A0004B77D3 /* ContextView.swift */; };
 		A3C402AB2A029355007491CD /* ModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C402AA2A029355007491CD /* ModelDelegate.swift */; };
+		A3E44F6F2A1B8B5000665AEE /* Date+isBetweenAndComponentize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44F6E2A1B8B5000665AEE /* Date+isBetweenAndComponentize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A3840B8929F010AD004B77D3 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		A3840B8B29F012A0004B77D3 /* ContextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
 		A3C402AA2A029355007491CD /* ModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDelegate.swift; sourceTree = "<group>"; };
+		A3E44F6E2A1B8B5000665AEE /* Date+isBetweenAndComponentize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+isBetweenAndComponentize.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		A3840B6A29F00228004B77D3 /* CardsApp */ = {
 			isa = PBXGroup;
 			children = (
+				A3E44F6D2A1B8ABB00665AEE /* Extensions */,
 				A37898C32A0CED340068DCE9 /* CommonViews */,
 				A347A0062A0971E800F94761 /* CoreData */,
 				A347A0012A09597E00F94761 /* Delegates */,
@@ -198,6 +201,14 @@
 				A3840B8729F0104D004B77D3 /* NewWordView.swift */,
 			);
 			path = NewWord;
+			sourceTree = "<group>";
+		};
+		A3E44F6D2A1B8ABB00665AEE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A3E44F6E2A1B8B5000665AEE /* Date+isBetweenAndComponentize.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +292,7 @@
 				A3840B7029F00228004B77D3 /* ViewController.swift in Sources */,
 				A3840B8829F0104D004B77D3 /* NewWordView.swift in Sources */,
 				A347A00D2A09729500F94761 /* Word+CoreDataProperties.swift in Sources */,
+				A3E44F6F2A1B8B5000665AEE /* Date+isBetweenAndComponentize.swift in Sources */,
 				A37898BF2A0AD5E90068DCE9 /* WordCardView.swift in Sources */,
 				A3840B6C29F00228004B77D3 /* AppDelegate.swift in Sources */,
 				A3840B8C29F012A0004B77D3 /* ContextView.swift in Sources */,

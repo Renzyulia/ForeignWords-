@@ -20,8 +20,6 @@ final class ContextView: UIView {
     }
     
     private func configureTextView() {
-        textView.font = .systemFont(ofSize: 18)
-        textView.textColor = .black
         textView.textAlignment = .left
         
         addSubview(textView)

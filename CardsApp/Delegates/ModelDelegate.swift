@@ -13,4 +13,5 @@ protocol ModelDelegate: AnyObject {
     func showTrainingView(for: String, translation: String, context: String)
     func showWordDetailsView()
     func showSavingError()
+    func showNoSavedWordsError()
 }

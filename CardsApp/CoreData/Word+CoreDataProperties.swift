@@ -14,8 +14,12 @@ extension Words {
         return NSFetchRequest<Words>(entityName: "Words")
     }
 
-    @NSManaged public var newWord: String
+    @NSManaged public var word: String
     @NSManaged public var translation: String
     @NSManaged public var context: String?
-    @NSManaged public var proficiencyLevel: String
+    @NSManaged public var date: Date?
+    @NSManaged public var guess: Int
+    @NSManaged public var lastShowTranslation: Bool
+    @NSManaged public var showTranslation: Int
+    @NSManaged public var showOriginal: Int
 }
