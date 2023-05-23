@@ -13,15 +13,17 @@ final class TrainingView: UIView {
     private let wordForTraining: String
     private let translation: String
     private let context: String?
+    private let showTranslation: Bool
     private var wordCard: WordCardView?
     private var detailCard: WordDetailsCardView?
     private let knownWordButton = ActionButton(title: "I know")
     private let unknownWordButton = ActionButton(title: "I don't know")
     
-    init(wordForTraining: String, translation: String, context: String?) {
+    init(wordForTraining: String, translation: String, context: String?, showTranslation: Bool) {
         self.wordForTraining = wordForTraining
         self.translation = translation
         self.context = context
+        self.showTranslation = showTranslation
         super.init(frame: .zero)
         
         configureWordCard()
@@ -38,8 +40,13 @@ final class TrainingView: UIView {
     }
     
     private func configureWordCard() {
-        let wordCard = WordCardView(wordForTraining: wordForTraining)
-        self.wordCard = wordCard
+        if showTranslation {
+            wordCard = WordCardView(wordForTraining: translation)
+        } else {
+            wordCard = WordCardView(wordForTraining: wordForTraining)
+        }
+        
+        guard let wordCard = wordCard else { return } // выдать здесь ошибку?
         
         addSubview(wordCard)
         
@@ -52,8 +59,9 @@ final class TrainingView: UIView {
         ])
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnTrainingView))
-        wordCard.isUserInteractionEnabled = false
-        self.isUserInteractionEnabled = true
+        tap.cancelsTouchesInView = false
+//        wordCard.isUserInteractionEnabled = false
+//        self.isUserInteractionEnabled = true
         addGestureRecognizer(tap)
     }
     
@@ -80,6 +88,9 @@ final class TrainingView: UIView {
         addSubview(knownWordButton)
         addSubview(unknownWordButton)
         
+        knownWordButton.addTarget(self, action: #selector(didTapKnownWordButton), for: .touchUpInside)
+        unknownWordButton.addTarget(self, action: #selector(didTapUnknownWordButton), for: .touchUpInside)
+        
         unknownWordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             unknownWordButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
@@ -93,5 +104,13 @@ final class TrainingView: UIView {
             knownWordButton.leftAnchor.constraint(equalTo: unknownWordButton.rightAnchor, constant: 20),
             knownWordButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -42),
         ])
+    }
+    
+    @objc private func didTapKnownWordButton() {
+        delegate?.didTapKnownWordButton()
+    }
+    
+    @objc private func didTapUnknownWordButton() {
+        delegate?.didTapUnknownWordButton()
     }
 }

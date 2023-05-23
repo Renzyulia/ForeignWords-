@@ -90,10 +90,10 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
         model?.didTapTrainingButton()
     }
     
-    func showTrainingView(for word: String, translation: String, context: String) {
+    func showTrainingView(for word: String, translation: String, context: String, showTranslation: Bool) {
         configureNavigationBar()
         
-        let trainingView = TrainingView(wordForTraining: word, translation: translation, context: context)
+        let trainingView = TrainingView(wordForTraining: word, translation: translation, context: context, showTranslation: showTranslation)
         self.trainingView = trainingView
         trainingView.delegate = self
         
@@ -120,6 +120,26 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     
     func showWordDetailsView() {
         trainingView?.showDetails()
+    }
+    
+    func didTapKnownWordButton() {
+        model?.didTapKnownWordButton()
+    }
+    
+    func didTapUnknownWordButton() {
+        model?.didTapUnknownWordButton()
+    }
+    
+    func showSavingChangesError() {
+        let alert = UIAlertController(title: nil, message: "Что-то пошло не так", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
+    func showFinishTraining() {
+        let alert = UIAlertController(title: nil, message: "Вы успешно выполнили тренировку", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     private func configureNavigationBar() {

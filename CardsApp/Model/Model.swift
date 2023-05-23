@@ -14,7 +14,16 @@ final class Model {
     var translation: String? = nil
     var context: String? = nil
     
+    private let coreDataContext = CoreData.shared.viewContext
+    private var savedWords: [Words] {
+        return fetchData(coreDataContext)
+    }
     private var trainingWords = Set<String>()
+    private var trainingWord: String? = nil
+    private var translationTrainingWord: String? = nil
+    private var contextTrainingWord: String? = nil
+    private var lastShowWordTranslation: Bool? = nil
+    
     
     func viewDidLoad() {
         delegate?.showMainPageView()
@@ -25,9 +34,6 @@ final class Model {
     }
     
     func didTapTrainingButton() {
-        let coreDataContext = CoreData.shared.viewContext
-        let savedWords = fetchData(coreDataContext)
-        
         trainingWords = formTrainingWords(from: savedWords)
         
         guard !trainingWords.isEmpty else {
@@ -35,17 +41,7 @@ final class Model {
             return
         }
         
-        let displayedWord = trainingWords.removeFirst()
-        var displayedWordWithDetails: Words? = nil
-        
-        for savedWord in savedWords {
-            if savedWord.word == displayedWord || savedWord.translation == displayedWord {
-                displayedWordWithDetails = savedWord
-                break
-            }
-        }
-        guard let trainingWord = displayedWordWithDetails else { return } //здесь нужно ошибку какую-то выдать?
-        delegate?.showTrainingView(for: trainingWord.word, translation: trainingWord.translation, context: trainingWord.context ?? "")
+        showTrainingWord()
     }
     
     func didTapSaveButton() {
@@ -83,6 +79,80 @@ final class Model {
     
     func didTapOnTrainingView() {
         delegate?.showWordDetailsView()
+    }
+    
+    func didTapKnownWordButton() {
+        var word: Words? = nil
+        
+        for savedword in savedWords {
+            if savedword.word == trainingWord {
+                word = savedword
+                break
+            }
+        }
+        
+        guard let word = word else { return }
+        guard let lastShowTranslation = lastShowWordTranslation else { return }
+        
+        do {
+            word.guess += 1
+            word.date = Date()
+            word.lastShowTranslation = lastShowTranslation
+            
+            if lastShowTranslation {
+                word.showTranslation += 1
+            } else {
+                word.showOriginal += 1
+            }
+            
+            try coreDataContext.save()
+            
+            trainingWord = nil
+            translationTrainingWord = nil
+            contextTrainingWord = nil
+            lastShowWordTranslation = nil
+            
+            guard !trainingWords.isEmpty else {
+                delegate?.showFinishTraining()
+                delegate?.showMainPageView()
+                return
+            }
+            
+            showTrainingWord()
+        } catch {
+            delegate?.showSavingChangesError()
+        }
+    }
+    
+    func didTapUnknownWordButton() {
+        print("I don't know")
+    }
+    
+    private func showTrainingWord() {
+        let displayedWord = trainingWords.removeFirst()
+        var displayedWordWithDetails: Words? = nil
+        
+        for word in savedWords {
+            if word.word == displayedWord || word.translation == displayedWord {
+                displayedWordWithDetails = word
+                break
+            }
+        }
+        
+        guard let trainingWord = displayedWordWithDetails else { return } //здесь нужно ошибку какую-то выдать?
+
+        // ставим флажок как показывается слово: перевод или оригинал
+        if displayedWord == trainingWord.word {
+            lastShowWordTranslation = false
+        } else if displayedWord == trainingWord.translation {
+            lastShowWordTranslation = true
+        }
+        
+        self.trainingWord = trainingWord.word
+        self.translationTrainingWord = trainingWord.translation
+        self.contextTrainingWord = trainingWord.context
+        
+        delegate?.showTrainingView(for: trainingWord.word, translation: trainingWord.translation, context: trainingWord.context ?? "", showTranslation: lastShowWordTranslation!)
     }
     
     private func fetchData(_ context: NSManagedObjectContext) -> [Words] {

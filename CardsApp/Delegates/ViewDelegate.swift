@@ -12,4 +12,6 @@ protocol ViewDelegate: AnyObject {
     func didTapTrainingButton()
     func didTapSaveButton()
     func didTapOnTrainingdView()
+    func didTapKnownWordButton()
+    func didTapUnknownWordButton()
 }
