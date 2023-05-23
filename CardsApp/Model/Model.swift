@@ -125,7 +125,47 @@ final class Model {
     }
     
     func didTapUnknownWordButton() {
-        print("I don't know")
+        var word: Words? = nil
+        
+        for savedword in savedWords {
+            if savedword.word == trainingWord {
+                word = savedword
+                break
+            }
+        }
+        
+        guard let word = word else { return }
+        guard let lastShowTranslation = lastShowWordTranslation else { return }
+        
+        do {
+            word.date = Date()
+            word.lastShowTranslation = lastShowTranslation
+            
+            if lastShowTranslation {
+                word.showTranslation += 1
+            } else {
+                word.showOriginal += 1
+            }
+            
+            try coreDataContext.save()
+            
+            print(fetchData(coreDataContext))
+            
+            trainingWord = nil
+            translationTrainingWord = nil
+            contextTrainingWord = nil
+            lastShowWordTranslation = nil
+            
+            guard !trainingWords.isEmpty else {
+                delegate?.showFinishTraining()
+                delegate?.showMainPageView()
+                return
+            }
+            
+            showTrainingWord()
+        } catch {
+            delegate?.showSavingChangesError()
+        }
     }
     
     private func showTrainingWord() {
