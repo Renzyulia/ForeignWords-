@@ -14,6 +14,7 @@ protocol ModelDelegate: AnyObject {
     func showWordDetailsView()
     func showSavingError()
     func showNoSavedWordsError()
+    func showNoTodayTrainingWords()
     func showSavingChangesError()
     func showFinishTraining()
 }

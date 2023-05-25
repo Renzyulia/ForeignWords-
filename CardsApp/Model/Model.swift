@@ -36,11 +36,13 @@ final class Model {
     func didTapTrainingButton() {
         trainingWords = formTrainingWords(from: savedWords)
         
-        guard !trainingWords.isEmpty else {
+        if trainingWords.isEmpty && savedWords.isEmpty {
             delegate?.showNoSavedWordsError()
-            return
+        } else if trainingWords.isEmpty && !savedWords.isEmpty {
+            delegate?.showNoTodayTrainingWords()
+        } else {
+            showTrainingWord()
         }
-        showTrainingWord()
     }
     
     func didTapSaveButton() {

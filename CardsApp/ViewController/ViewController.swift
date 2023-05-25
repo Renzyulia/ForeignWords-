@@ -16,6 +16,8 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addTapGestureToHideKeyboard()
+        
         let model = Model()
         self.model = model
         model.delegate = self
@@ -109,7 +111,13 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     func showNoSavedWordsError() {
-        let alert = UIAlertController(title: nil, message: "Вы еще не добавили ни одного слова для тренировки", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "Вы еще не добавили слова для тренировки", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
+    func showNoTodayTrainingWords() {
+        let alert = UIAlertController(title: nil, message: "Вы повторили все возможные слова на сегодня", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
@@ -151,6 +159,7 @@ class ViewController: UIViewController, ModelDelegate, ViewDelegate {
     }
     
     @objc private func didTapBackButton() {
+        view.endEditing(true)
         model?.didTapBackButton()
     }
 }

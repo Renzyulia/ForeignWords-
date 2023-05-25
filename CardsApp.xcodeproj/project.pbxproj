@@ -14,6 +14,7 @@
 		A347A00D2A09729500F94761 /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A347A00B2A09729500F94761 /* Word+CoreDataProperties.swift */; };
 		A347A00F2A0972F400F94761 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A347A00E2A0972F400F94761 /* CoreData.swift */; };
 		A347A0112A09754E00F94761 /* TextFieldAndTextViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A347A0102A09754E00F94761 /* TextFieldAndTextViewDelegates.swift */; };
+		A36CA4B42A1F84360023CDC9 /* UIViewController+HidingKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36CA4B32A1F84360023CDC9 /* UIViewController+HidingKeyboard.swift */; };
 		A37898BD2A0AD5570068DCE9 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37898BC2A0AD5570068DCE9 /* TrainingView.swift */; };
 		A37898BF2A0AD5E90068DCE9 /* WordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37898BE2A0AD5E90068DCE9 /* WordCardView.swift */; };
 		A37898C52A0D0BD80068DCE9 /* WordDetailsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37898C42A0D0BD80068DCE9 /* WordDetailsCardView.swift */; };
@@ -39,6 +40,7 @@
 		A347A00B2A09729500F94761 /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A347A00E2A0972F400F94761 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		A347A0102A09754E00F94761 /* TextFieldAndTextViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAndTextViewDelegates.swift; sourceTree = "<group>"; };
+		A36CA4B32A1F84360023CDC9 /* UIViewController+HidingKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HidingKeyboard.swift"; sourceTree = "<group>"; };
 		A37898BC2A0AD5570068DCE9 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
 		A37898BE2A0AD5E90068DCE9 /* WordCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCardView.swift; sourceTree = "<group>"; };
 		A37898C42A0D0BD80068DCE9 /* WordDetailsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailsCardView.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				A3E44F6E2A1B8B5000665AEE /* Date+isBetweenAndComponentize.swift */,
+				A36CA4B32A1F84360023CDC9 /* UIViewController+HidingKeyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A37898C52A0D0BD80068DCE9 /* WordDetailsCardView.swift in Sources */,
+				A36CA4B42A1F84360023CDC9 /* UIViewController+HidingKeyboard.swift in Sources */,
 				A33214372A0262AD00CB6C77 /* ViewDelegate.swift in Sources */,
 				A3840B8A29F010AD004B77D3 /* TextView.swift in Sources */,
 				A37898BD2A0AD5570068DCE9 /* TrainingView.swift in Sources */,
@@ -439,6 +443,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9K85W5M574;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CardsApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -464,6 +469,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9K85W5M574;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CardsApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
