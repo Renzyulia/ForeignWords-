@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewWordView: UIView {
-    let newWordTextFieldDelegate: UITextFieldDelegate
+    let newWordTextFieldDelegate: UITextFieldDelegate //вот здесь же тоже должны быть слабые ссылки?
     let translationTextFieldDelegate: UITextFieldDelegate
     let contextTextViewDelegate: UITextViewDelegate
     let context = ContextView()

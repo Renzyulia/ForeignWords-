@@ -54,6 +54,6 @@ final class ContextTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-//        delegate?.context = textView.text
+        delegate?.context = textView.text
     }
 }

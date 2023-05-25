@@ -14,10 +14,10 @@ final class TrainingView: UIView {
     private let translation: String
     private let context: String?
     private let showTranslation: Bool
-    private var wordCard: WordCardView?
-    private var detailCard: WordDetailsCardView?
     private let knownWordButton = ActionButton(title: "I know")
     private let unknownWordButton = ActionButton(title: "I don't know")
+    private var wordCard: WordCardView?
+    private var detailCard: WordDetailsCardView?
     
     init(wordForTraining: String, translation: String, context: String?, showTranslation: Bool) {
         self.wordForTraining = wordForTraining
@@ -60,8 +60,6 @@ final class TrainingView: UIView {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnTrainingView))
         tap.cancelsTouchesInView = false
-//        wordCard.isUserInteractionEnabled = false
-//        self.isUserInteractionEnabled = true
         addGestureRecognizer(tap)
     }
     

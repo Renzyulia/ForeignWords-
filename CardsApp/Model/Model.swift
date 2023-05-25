@@ -40,7 +40,6 @@ final class Model {
             delegate?.showNoSavedWordsError()
             return
         }
-        
         showTrainingWord()
     }
     
@@ -105,6 +104,10 @@ final class Model {
                 word.showOriginal += 1
             }
             
+            if word.guess > 25 {
+                coreDataContext.delete(word)
+            }
+            
             try coreDataContext.save()
             
             trainingWord = nil
@@ -117,7 +120,6 @@ final class Model {
                 delegate?.showMainPageView()
                 return
             }
-            
             showTrainingWord()
         } catch {
             delegate?.showSavingChangesError()
@@ -148,8 +150,6 @@ final class Model {
             }
             
             try coreDataContext.save()
-            
-            print(fetchData(coreDataContext))
             
             trainingWord = nil
             translationTrainingWord = nil
@@ -403,12 +403,33 @@ final class Model {
         return trainingWords
     }
     
+    //метод, чтобы снизить количество угаданных случаев у слова
+    private func reduceSuccessRate(of word: Words) -> Bool {
+        let addedWords = fetchData(coreDataContext)
+        var success = false
+        
+        for addedWord in addedWords { // в списке ищем нужно слово
+            if addedWord.word == word.word {
+                do {
+                    word.guess -= 2
+                    try coreDataContext.save()
+                    success = true
+                } catch {
+                    success = false
+                }
+                break
+            }
+        }
+        return success
+    }
+    
     private func check(of word: Words) -> Bool {
         if word.guess <= 3 {
             guard word.date != nil else { return true }
-            let wordDate = word.date?.componentize()
-            let todayDate = Date().componentize()
-            if (wordDate?.day == todayDate.day && wordDate?.month == todayDate.month && wordDate?.year == todayDate.year) {
+            var wordDate: Date {
+                return Calendar.current.date(byAdding: .day, value: 1, to: word.date!)!
+            }
+            if Date().componentize() == wordDate.componentize() {
                 return true
             }
         }
@@ -423,7 +444,9 @@ final class Model {
             if Date().isBetween(minDate, maxDate) {
                 return true
             } else if Date() > maxDate {
-                // вызываем у слова изменение количества успешных показов на 2
+                if reduceSuccessRate(of: word) == false {
+                    delegate?.showSavingChangesError()
+                }
                 return true
             }
         }
@@ -438,7 +461,9 @@ final class Model {
             if Date().isBetween(minDate, maxDate) {
                 return true
             } else if Date() > maxDate {
-                // вызываем у слова изменение количества успешных показов на 2
+                if reduceSuccessRate(of: word) == false {
+                    delegate?.showSavingChangesError()
+                }
                 return true
             }
         }
@@ -453,7 +478,9 @@ final class Model {
             if Date().isBetween(minDate, maxDate) {
                 return true
             } else if Date() > maxDate {
-                // вызываем у слова изменение количества успешных показов на 2
+                if reduceSuccessRate(of: word) == false {
+                    delegate?.showSavingChangesError()
+                }
                 return true
             }
         }

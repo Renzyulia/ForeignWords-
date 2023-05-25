@@ -11,5 +11,5 @@ import CoreData
 
 @objc(Words)
 public class Words: NSManagedObject {
-
+    
 }
