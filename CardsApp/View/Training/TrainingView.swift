@@ -8,7 +8,7 @@
 import UIKit
 
 final class TrainingView: UIView {
-    weak var delegate: ViewDelegate?
+    weak var delegate: TrainingViewDelegate?
     
     private let wordForTraining: String
     private let translation: String

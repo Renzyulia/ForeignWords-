@@ -13,4 +13,17 @@ extension UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
+    
+    func embed(_ viewController: UIViewController) {
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.view.frame = view.bounds
+        viewController.didMove(toParent: self)
+    }
+    
+    func remove() {
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
+    }
 }
