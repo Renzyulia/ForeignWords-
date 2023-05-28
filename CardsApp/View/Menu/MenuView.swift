@@ -8,7 +8,7 @@
 import UIKit
 
 final class MenuView: UIView {
-    weak var delegate: ViewDelegate?
+    weak var delegate: MenuViewDelegate?
     
     private let newWordButton = ActionButton(title: "New Word")
     private let trainingButton = ActionButton(title: "Training")

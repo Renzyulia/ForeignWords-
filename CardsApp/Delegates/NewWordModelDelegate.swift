@@ -7,9 +7,8 @@
 
 import UIKit
 
-protocol ModelDelegate: AnyObject {
-    func showMainPageView()
+protocol NewWordModelDelegate: AnyObject {
     func showNewWordView()
-    func showTrainingView()
     func showSavingError()
+    func notifyCompletion()
 }

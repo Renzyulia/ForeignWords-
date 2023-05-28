@@ -12,7 +12,7 @@ final class NewWordView: UIView {
     let translationTextFieldDelegate: UITextFieldDelegate
     let contextTextViewDelegate: UITextViewDelegate
     let context = ContextView()
-    weak var delegate: ViewDelegate?
+    weak var delegate: NewWordViewController?
     
     private let newWord = TextView(placeholder: "New Word")
     private let translation = TextView(placeholder: "Translation")

@@ -37,6 +37,10 @@ final class TrainingModel {
         delegate?.showWordDetailsView()
     }
     
+    func didTapBackButton() {
+        delegate?.notifyCompletion()
+    }
+    
     func didTapKnownWordButton() {
         var word: Words? = nil
         
@@ -74,7 +78,6 @@ final class TrainingModel {
             
             guard !trainingWords.isEmpty else {
                 delegate?.showFinishTraining()
-                delegate?.showMainPageView()
                 return
             }
             showTrainingWord()
@@ -115,7 +118,6 @@ final class TrainingModel {
             
             guard !trainingWords.isEmpty else {
                 delegate?.showFinishTraining()
-                delegate?.showMainPageView()
                 return
             }
             

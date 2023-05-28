@@ -8,7 +8,7 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    let navigationBarVisibility: Bool
+    private let navigationBarVisibility: Bool
     
     init(navigationBarVisibility: Bool) {
         self.navigationBarVisibility = navigationBarVisibility
@@ -17,6 +17,11 @@ class BaseViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureNavigationBar()
     }
     
     func handleDidTapBackButton() {

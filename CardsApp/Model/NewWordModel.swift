@@ -8,17 +8,13 @@
 import UIKit
 import CoreData
 
-final class Model {
-    weak var delegate: ModelDelegate?
+final class NewWordModel {
+    weak var delegate: NewWordModelDelegate?
     var newWord: String? = nil
     var translation: String? = nil
     var context: String? = nil
     
     func viewDidLoad() {
-        delegate?.showMainPageView()
-    }
-    
-    func didTapNewWordButton() {
         delegate?.showNewWordView()
     }
     
@@ -52,10 +48,6 @@ final class Model {
     }
     
     func didTapBackButton() {
-        delegate?.showMainPageView()
-    }
-    
-    func didTapTrainingButton() {
-        delegate?.showTrainingView()
+        delegate?.notifyCompletion()
     }
 }

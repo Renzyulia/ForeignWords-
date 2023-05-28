@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewWordTextFieldDelegate: NSObject, UITextFieldDelegate {
-    weak var delegate: Model?
+    weak var delegate: NewWordModel?
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text != " " {
@@ -18,7 +18,7 @@ final class NewWordTextFieldDelegate: NSObject, UITextFieldDelegate {
 }
 
 final class TranslationTextFieldDelegate: NSObject, UITextFieldDelegate {
-    weak var delegate: Model?
+    weak var delegate: NewWordModel?
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text != " " {
@@ -28,7 +28,7 @@ final class TranslationTextFieldDelegate: NSObject, UITextFieldDelegate {
 }
 
 final class ContextTextViewDelegate: NSObject, UITextViewDelegate {
-    weak var delegate: Model?
+    weak var delegate: NewWordModel?
     
     private let placeholder = NSAttributedString(
         string: "How the word can be used",

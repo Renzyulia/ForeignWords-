@@ -7,9 +7,18 @@
 
 import UIKit
 
-final class TrainingViewController: UIViewController, TrainingModelDelegate, TrainingViewDelegate {
+final class TrainingViewController: BaseViewController, TrainingModelDelegate, TrainingViewDelegate {
+    weak var delegate: NewWordViewControllerDelegate?
     var trainingModel: TrainingModel? = nil
     var trainingView: TrainingView? = nil
+    
+    init() {
+        super.init(navigationBarVisibility: false)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +30,11 @@ final class TrainingViewController: UIViewController, TrainingModelDelegate, Tra
         trainingModel.viewDidLoad()
     }
     
+    override func handleDidTapBackButton() {
+        trainingModel?.didTapBackButton()
+    }
+    
     func showTrainingView(for word: String, translation: String, context: String, showTranslation: Bool) {
-//        configureNavigationBar()
-        
         let trainingView = TrainingView(wordForTraining: word, translation: translation, context: context, showTranslation: showTranslation)
         self.trainingView = trainingView
         trainingView.delegate = self
@@ -37,6 +48,10 @@ final class TrainingViewController: UIViewController, TrainingModelDelegate, Tra
             trainingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             trainingView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+    
+    func notifyCompletion() {
+        delegate?.onFinish()
     }
     
     func showNoSavedWordsError() {
@@ -76,12 +91,8 @@ final class TrainingViewController: UIViewController, TrainingModelDelegate, Tra
     func showFinishTraining() {
         let alert = UIAlertController(title: nil, message: "Вы успешно выполнили тренировку", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] UIAlertAction in
-            self?.navigationController?.popViewController(animated: true)
+            self?.delegate?.onFinish()
         })
         present(alert, animated: true)
-    }
-    
-    func showMainPageView() {
-        
     }
 }

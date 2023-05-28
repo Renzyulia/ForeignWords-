@@ -14,5 +14,5 @@ protocol TrainingModelDelegate: AnyObject {
     func showNoTodayTrainingWords()
     func showSavingChangesError()
     func showFinishTraining()
-    func showMainPageView()
+    func notifyCompletion()
 }

@@ -26,6 +26,8 @@ final class TrainingView: UIView {
         self.showTranslation = showTranslation
         super.init(frame: .zero)
         
+        backgroundColor = .lightGray
+        
         configureWordCard()
         configureButtons()
     }

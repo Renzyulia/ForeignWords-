@@ -7,8 +7,6 @@
 
 import UIKit
 
-protocol ViewDelegate: AnyObject {
-    func didTapNewWordButton()
-    func didTapTrainingButton()
+protocol NewWordViewDelegate: AnyObject {
     func didTapSaveButton()
 }
