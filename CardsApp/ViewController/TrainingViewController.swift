@@ -8,7 +8,7 @@
 import UIKit
 
 final class TrainingViewController: BaseViewController, TrainingModelDelegate, TrainingViewDelegate {
-    weak var delegate: NewWordViewControllerDelegate?
+    weak var delegate: NewWordAndTrainingViewControllersDelegate?
     var trainingModel: TrainingModel? = nil
     var trainingView: TrainingView? = nil
     
@@ -56,13 +56,17 @@ final class TrainingViewController: BaseViewController, TrainingModelDelegate, T
     
     func showNoSavedWordsError() {
         let alert = UIAlertController(title: nil, message: "Вы еще не добавили слова для тренировки", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] UIAlertAction in
+            self?.delegate?.onFinish()
+        })
         present(alert, animated: true)
     }
     
     func showNoTodayTrainingWords() {
         let alert = UIAlertController(title: nil, message: "Вы повторили все возможные слова на сегодня", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] UIAlertAction in
+            self?.delegate?.onFinish()
+        })
         present(alert, animated: true)
     }
     

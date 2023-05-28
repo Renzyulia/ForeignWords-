@@ -14,7 +14,6 @@
 		A3023E712A239BB3003170F1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E702A239BB3003170F1 /* MenuViewController.swift */; };
 		A3023E752A239DFA003170F1 /* MenuViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E742A239DFA003170F1 /* MenuViewDelegate.swift */; };
 		A3023E772A23A188003170F1 /* NewWordViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E762A23A188003170F1 /* NewWordViewControllerDelegate.swift */; };
-		A3023E792A23A7D6003170F1 /* TrainingViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E782A23A7D6003170F1 /* TrainingViewControllerDelegate.swift */; };
 		A33214352A025ED900CB6C77 /* NewWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33214342A025ED900CB6C77 /* NewWordModel.swift */; };
 		A33214372A0262AD00CB6C77 /* NewWordViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33214362A0262AD00CB6C77 /* NewWordViewDelegate.swift */; };
 		A347A0092A09720F00F94761 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A347A0072A09720F00F94761 /* CoreDataModel.xcdatamodeld */; };
@@ -49,7 +48,6 @@
 		A3023E702A239BB3003170F1 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A3023E742A239DFA003170F1 /* MenuViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewDelegate.swift; sourceTree = "<group>"; };
 		A3023E762A23A188003170F1 /* NewWordViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewControllerDelegate.swift; sourceTree = "<group>"; };
-		A3023E782A23A7D6003170F1 /* TrainingViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A33214342A025ED900CB6C77 /* NewWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordModel.swift; sourceTree = "<group>"; };
 		A33214362A0262AD00CB6C77 /* NewWordViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewDelegate.swift; sourceTree = "<group>"; };
 		A347A0082A09720F00F94761 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 				A3023E6A2A236295003170F1 /* TrainingModelDelegate.swift */,
 				A347A0102A09754E00F94761 /* TextFieldAndTextViewDelegates.swift */,
 				A3023E762A23A188003170F1 /* NewWordViewControllerDelegate.swift */,
-				A3023E782A23A7D6003170F1 /* TrainingViewControllerDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -324,7 +321,6 @@
 				A347A0092A09720F00F94761 /* CoreDataModel.xcdatamodeld in Sources */,
 				A33214352A025ED900CB6C77 /* NewWordModel.swift in Sources */,
 				A3840B7029F00228004B77D3 /* NewWordViewController.swift in Sources */,
-				A3023E792A23A7D6003170F1 /* TrainingViewControllerDelegate.swift in Sources */,
 				A3840B8829F0104D004B77D3 /* NewWordView.swift in Sources */,
 				A347A00D2A09729500F94761 /* Word+CoreDataProperties.swift in Sources */,
 				A3023E6F2A2392CE003170F1 /* BaseViewController.swift in Sources */,

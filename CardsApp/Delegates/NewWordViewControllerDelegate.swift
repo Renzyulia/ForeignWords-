@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol NewWordViewControllerDelegate: AnyObject {
+protocol NewWordAndTrainingViewControllersDelegate: AnyObject {
     func onFinish()
 }

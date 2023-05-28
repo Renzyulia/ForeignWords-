@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewWordViewController: BaseViewController, NewWordModelDelegate, NewWordViewDelegate {
-    weak var delegate: NewWordViewControllerDelegate?
+    weak var delegate: NewWordAndTrainingViewControllersDelegate?
     var newWordModel: NewWordModel? = nil
     var newWordView: NewWordView? = nil
     
