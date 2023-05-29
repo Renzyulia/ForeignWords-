@@ -18,11 +18,25 @@ final class NewWordModel {
         delegate?.showNewWordView()
     }
     
+    private func checkRepeat(word: String) -> Bool {
+        let savedWords = fetchData(CoreData.shared.viewContext)
+        
+        for savedWord in savedWords {
+            if savedWord.word == word {
+                delegate?.showRepeatWordError()
+                return true
+            }
+        }
+        return false
+    }
+    
     func didTapSaveButton() {
+        guard let newWord = newWord, let translation = translation else { return }
+        guard checkRepeat(word: newWord) == false else { return }
+        
         let coreDataContext = CoreData.shared.viewContext
         let object = Words(context: coreDataContext)
         
-        guard let newWord = newWord, let translation = translation else { return }
         object.word = newWord
         object.translation = translation
         object.guess = 0
@@ -49,5 +63,17 @@ final class NewWordModel {
     
     func didTapBackButton() {
         delegate?.notifyCompletion()
+    }
+    
+    private func fetchData(_ context: NSManagedObjectContext) -> [Words] {
+        var wordsData = [Words]()
+        
+        do {
+            wordsData = try context.fetch(Words.fetchRequest())
+        } catch {
+            print("error") // показать алерт с ошибкой
+        }
+        
+        return wordsData
     }
 }

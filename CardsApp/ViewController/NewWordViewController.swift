@@ -75,6 +75,14 @@ final class NewWordViewController: BaseViewController, NewWordModelDelegate, New
         present(alert, animated: true)
     }
     
+    func showRepeatWordError() {
+        let alert = UIAlertController(title: nil, message: "Вы уже добавляли такое слово", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] UIAlertAction in
+            self?.showNewWordView()
+        })
+        present(alert, animated: true)
+    }
+    
     func notifyCompletion() {
         delegate?.onFinish()
     }

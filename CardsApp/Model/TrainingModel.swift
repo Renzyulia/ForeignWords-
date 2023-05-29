@@ -16,9 +16,7 @@ final class TrainingModel {
         return fetchData(coreDataContext)
     }
     private var trainingWords = Set<String>()
-    private var trainingWord: String? = nil
-    private var translationTrainingWord: String? = nil
-    private var contextTrainingWord: String? = nil
+    private var trainingWord: Words? = nil
     private var lastShowWordTranslation: Bool? = nil
     private var unknownWords = 0
     private var littleKnownWords = 0
@@ -26,7 +24,7 @@ final class TrainingModel {
     
     func viewDidLoad() {
         trainingWords = formTrainingWords(from: savedWords)
-        
+
         if trainingWords.isEmpty && savedWords.isEmpty {
             delegate?.showNoSavedWordsError()
         } else if trainingWords.isEmpty && !savedWords.isEmpty {
@@ -45,16 +43,7 @@ final class TrainingModel {
     }
     
     func didTapKnownWordButton() {
-        var word: Words? = nil
-        
-        for savedword in savedWords {
-            if savedword.word == trainingWord {
-                word = savedword
-                break
-            }
-        }
-        
-        guard let word = word else { return }
+        guard let word = trainingWord else { return }
         guard let lastShowTranslation = lastShowWordTranslation else { return }
         
         do {
@@ -75,8 +64,6 @@ final class TrainingModel {
             try coreDataContext.save()
             
             trainingWord = nil
-            translationTrainingWord = nil
-            contextTrainingWord = nil
             lastShowWordTranslation = nil
             
             guard !trainingWords.isEmpty else {
@@ -90,16 +77,7 @@ final class TrainingModel {
     }
     
     func didTapUnknownWordButton() {
-        var word: Words? = nil
-        
-        for savedword in savedWords {
-            if savedword.word == trainingWord {
-                word = savedword
-                break
-            }
-        }
-        
-        guard let word = word else { return }
+        guard let word = trainingWord else { return }
         guard let lastShowTranslation = lastShowWordTranslation else { return }
         
         do {
@@ -115,15 +93,12 @@ final class TrainingModel {
             try coreDataContext.save()
             
             trainingWord = nil
-            translationTrainingWord = nil
-            contextTrainingWord = nil
             lastShowWordTranslation = nil
             
             guard !trainingWords.isEmpty else {
                 delegate?.showFinishTraining()
                 return
             }
-            
             showTrainingWord()
         } catch {
             delegate?.showSavingChangesError()
@@ -140,7 +115,7 @@ final class TrainingModel {
                 break
             }
         }
-        
+
         guard let trainingWord = displayedWordWithDetails else { return } //здесь нужно ошибку какую-то выдать?
 
         // ставим флажок как показывается слово: перевод или оригинал
@@ -150,9 +125,7 @@ final class TrainingModel {
             lastShowWordTranslation = true
         }
         
-        self.trainingWord = trainingWord.word
-        self.translationTrainingWord = trainingWord.translation
-        self.contextTrainingWord = trainingWord.context
+        self.trainingWord = trainingWord
         
         delegate?.showTrainingView(for: trainingWord.word, translation: trainingWord.translation, context: trainingWord.context ?? "", showTranslation: lastShowWordTranslation!)
     }
@@ -371,6 +344,10 @@ final class TrainingModel {
             for word in originalWords {
                 listTraningWords.insert(word.word)
             }
+        
+        unknownWords = 0
+        littleKnownWords = 0
+        knownWords = 0
         
         return listTraningWords
     }

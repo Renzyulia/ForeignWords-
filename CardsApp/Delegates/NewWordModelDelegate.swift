@@ -10,5 +10,6 @@ import UIKit
 protocol NewWordModelDelegate: AnyObject {
     func showNewWordView()
     func showSavingError()
+    func showRepeatWordError()
     func notifyCompletion()
 }
