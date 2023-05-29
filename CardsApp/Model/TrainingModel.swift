@@ -20,6 +20,9 @@ final class TrainingModel {
     private var translationTrainingWord: String? = nil
     private var contextTrainingWord: String? = nil
     private var lastShowWordTranslation: Bool? = nil
+    private var unknownWords = 0
+    private var littleKnownWords = 0
+    private var knownWords = 0
     
     func viewDidLoad() {
         trainingWords = formTrainingWords(from: savedWords)
@@ -166,16 +169,11 @@ final class TrainingModel {
         return wordsData
     }
     
-    private func formTrainingWords(from words: [Words]) -> Set<String> {
-        var trainingWords = Set<String>()
-        var unknownWords = 0
-        var littleKnownWords = 0
-        var knownWords = 0
+    private func addTrainingWords(from savedWords: [Words]) -> ([Words], [Words]) {
         var translations = [Words]()
         var originalWords = [Words]()
-
-        //добавляем слова в массив слов
-        for word in words {
+        
+        for word in savedWords {
             if check(of: word) {
                 if word.guess <= 3 && unknownWords <= 6 {
                     if word.lastShowTranslation {
@@ -201,11 +199,18 @@ final class TrainingModel {
                 }
             }
         }
+        return (translations, originalWords)
+    }
+    
+    private func checkNumberOfWords(_ savedWords: [Words]) -> ([Words], [Words]) {
+        let resultAddingWords = addTrainingWords(from: savedWords)
+        var translations = resultAddingWords.0
+        var originalWords = resultAddingWords.1
         
         // проверяем достаточное ли количество известных слов, если нет, то сначала добавляем из малоизвестных, потом из неизвестных
         if knownWords != 6 {
             var requiredBalance = 6 - knownWords
-            for word in words {
+            for word in savedWords {
                 if requiredBalance != 0 {
                     if check(of: word) {
                         if word.guess > 3 && word.guess <= 17 {
@@ -221,7 +226,7 @@ final class TrainingModel {
                 }
             }
             if requiredBalance != 0 {
-                for word in words {
+                for word in savedWords {
                     if requiredBalance != 0 {
                         if check(of: word) {
                             if word.guess <= 3 {
@@ -242,7 +247,7 @@ final class TrainingModel {
     //    // проверяем достаточное ли количество неизвестных слов, если нет, то сначала добавляем из малоизвестных, потом из известных
         if unknownWords != 6 {
             var requiredBalance = 6 - unknownWords
-            for word in words {
+            for word in savedWords {
                 if requiredBalance != 0 {
                     if check(of: word) {
                         if word.guess > 3 && word.guess <= 17 {
@@ -258,7 +263,7 @@ final class TrainingModel {
                 }
             }
             if requiredBalance != 0 {
-                for word in words {
+                for word in savedWords {
                     if requiredBalance != 0 {
                         if check(of: word) {
                             if word.guess > 17 && word.guess <= 25 {
@@ -277,7 +282,7 @@ final class TrainingModel {
             
             if littleKnownWords != 6 {
                 var requiredBalance = 6 - littleKnownWords
-                for word in words {
+                for word in savedWords {
                     if requiredBalance != 0 {
                         if check(of: word) {
                             if word.guess <= 3 {
@@ -293,7 +298,7 @@ final class TrainingModel {
                     }
                 }
                 if requiredBalance != 0 {
-                    for word in words {
+                    for word in savedWords {
                         if requiredBalance != 0 {
                             if check(of: word) {
                                 if word.guess > 17 && word.guess <= 25 {
@@ -311,55 +316,67 @@ final class TrainingModel {
                 }
             }
         }
+        return (translations, originalWords)
+    }
+    
+    private func checkBalanceWords() -> Set<String> {
+        let resultSecondStep = checkNumberOfWords(savedWords)
+        var translations = resultSecondStep.0
+        var originalWords = resultSecondStep.1
+        var listTraningWords = Set<String>()
         
-    // проверяем баланс переводов и оригинальных слов в массивe
-        let normalBalance = Int(Double(originalWords.count + translations.count) * 0.6)
-        if originalWords.count < normalBalance {
-            var requiredBalance = normalBalance - originalWords.count
-            var sortedTranslations = translations.sorted(by: { (word1, word2) -> Bool in
-                return word1.showTranslation > word2.showTranslation
-            })
+        // проверяем баланс переводов и оригинальных слов в массивe
+            let normalBalance = Int(Double(originalWords.count + translations.count) * 0.6)
+            if originalWords.count < normalBalance {
+                var requiredBalance = normalBalance - originalWords.count
+                var sortedTranslations = translations.sorted(by: { (word1, word2) -> Bool in
+                    return word1.showTranslation > word2.showTranslation
+                })
+                
+                while requiredBalance != 0 {
+                    let word = sortedTranslations.removeFirst()
+                    originalWords.append(word)
+                    requiredBalance -= 1
+                    
+                    for index in 0..<translations.count {
+                        if translations[index] == word {
+                            translations.remove(at: index)
+                            break
+                        }
+                    }
+                }
+            } else if originalWords.count > normalBalance {
+                var requiredBalance = originalWords.count - normalBalance
+                var sortedOriginalWords = originalWords.sorted(by: { (word1, word2) -> Bool in
+                    return word1.showOriginal > word2.showOriginal
+                })
+                while requiredBalance != 0 {
+                    let word = sortedOriginalWords.removeFirst()
+                    translations.append(word)
+                    requiredBalance -= 1
+                    
+                    for index in 0..<originalWords.count {
+                        if originalWords[index] == word {
+                            originalWords.remove(at: index)
+                            break
+                        }
+                    }
+                }
+            }
             
-            while requiredBalance != 0 {
-                let word = sortedTranslations.removeFirst()
-                originalWords.append(word)
-                requiredBalance -= 1
-                
-                for index in 0..<translations.count {
-                    if translations[index] == word {
-                        translations.remove(at: index)
-                        break
-                    }
-                }
+            for word in translations {
+                listTraningWords.insert(word.translation)
             }
-        } else if originalWords.count > normalBalance {
-            var requiredBalance = originalWords.count - normalBalance
-            var sortedOriginalWords = originalWords.sorted(by: { (word1, word2) -> Bool in
-                return word1.showOriginal > word2.showOriginal
-            })
-            while requiredBalance != 0 {
-                let word = sortedOriginalWords.removeFirst()
-                translations.append(word)
-                requiredBalance -= 1
-                
-                for index in 0..<originalWords.count {
-                    if originalWords[index] == word {
-                        originalWords.remove(at: index)
-                        break
-                    }
-                }
+            
+            for word in originalWords {
+                listTraningWords.insert(word.word)
             }
-        }
         
-        for word in translations {
-            trainingWords.insert(word.translation)
-        }
-        
-        for word in originalWords {
-            trainingWords.insert(word.word)
-        }
-        
-        return trainingWords
+        return listTraningWords
+    }
+    
+    private func formTrainingWords(from words: [Words]) -> Set<String> {
+        return checkBalanceWords()
     }
     
     //метод, чтобы снизить количество угаданных случаев у слова, если человек давно не выполнял тренировку

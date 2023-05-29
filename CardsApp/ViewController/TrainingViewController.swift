@@ -50,10 +50,6 @@ final class TrainingViewController: BaseViewController, TrainingModelDelegate, T
         ])
     }
     
-    func notifyCompletion() {
-        delegate?.onFinish()
-    }
-    
     func showNoSavedWordsError() {
         let alert = UIAlertController(title: nil, message: "Вы еще не добавили слова для тренировки", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] UIAlertAction in
@@ -98,5 +94,9 @@ final class TrainingViewController: BaseViewController, TrainingModelDelegate, T
             self?.delegate?.onFinish()
         })
         present(alert, animated: true)
+    }
+    
+    func notifyCompletion() {
+        delegate?.onFinish()
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MenuViewController: BaseViewController, MenuViewDelegate, NewWordViewControllerDelegate {
+final class MenuViewController: BaseViewController, MenuViewDelegate, NewWordAndTrainingViewControllersDelegate {
     var menuView: MenuView? = nil
     
     init() {

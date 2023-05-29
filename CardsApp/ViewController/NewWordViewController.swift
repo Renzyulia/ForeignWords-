@@ -78,3 +78,4 @@ final class NewWordViewController: BaseViewController, NewWordModelDelegate, New
     func notifyCompletion() {
         delegate?.onFinish()
     }
+}
