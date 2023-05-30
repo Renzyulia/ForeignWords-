@@ -8,6 +8,27 @@
 import UIKit
 import CoreData
 
+struct Guess {
+    var numberGuess: Int
+    
+    var isUnknown: Bool {
+        return numberGuess <= 3
+    }
+    var isLittleKnown: Bool {
+        return numberGuess > 3 && numberGuess <= 17
+    }
+    
+    var isKnown: Bool {
+        return numberGuess > 17 && numberGuess <= 25
+    }
+}
+
+enum WordsStatus {
+    case unknown
+    case littleUnknown
+    case known
+}
+
 final class TrainingModel {
     weak var delegate: TrainingModelDelegate?
     
@@ -21,6 +42,8 @@ final class TrainingModel {
     private var unknownWords = 0
     private var littleKnownWords = 0
     private var knownWords = 0
+    private var translations = [Words]()
+    private var originalWords = [Words]()
     
     func viewDidLoad() {
         trainingWords = formTrainingWords(from: savedWords)
@@ -115,6 +138,9 @@ final class TrainingModel {
                 break
             }
         }
+        
+        print(trainingWords)
+        print(savedWords)
 
         guard let trainingWord = displayedWordWithDetails else { return } //здесь нужно ошибку какую-то выдать?
 
@@ -142,10 +168,7 @@ final class TrainingModel {
         return wordsData
     }
     
-    private func addTrainingWords(from savedWords: [Words]) -> ([Words], [Words]) {
-        var translations = [Words]()
-        var originalWords = [Words]()
-        
+    private func addTrainingWords(from savedWords: [Words]) {
         for word in savedWords {
             if check(of: word) {
                 if word.guess <= 3 && unknownWords <= 6 {
@@ -172,130 +195,103 @@ final class TrainingModel {
                 }
             }
         }
-        return (translations, originalWords)
     }
     
-    private func checkNumberOfWords(_ savedWords: [Words]) -> ([Words], [Words]) {
-        let resultAddingWords = addTrainingWords(from: savedWords)
-        var translations = resultAddingWords.0
-        var originalWords = resultAddingWords.1
+    private func configureWord(with status: WordsStatus) -> Words? { //тут нужно еще научить вовзращать nil
+        switch status {
+        case .known:
+            for word in savedWords {
+                if check(of: word) {
+                    let wordGuess = Guess(numberGuess: word.guess)
+                    if wordGuess.isKnown {
+                        guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
+                        return word
+                    }
+                }
+            }
+            return nil
+            
+        case .littleUnknown:
+            for word in savedWords {
+                if check(of: word) {
+                    let wordGuess = Guess(numberGuess: word.guess)
+                    if wordGuess.isLittleKnown {
+                        guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
+                        return word
+                    }
+                }
+            }
+            return nil
+        case .unknown:
+            for word in savedWords {
+                if check(of: word) {
+                    let wordGuess = Guess(numberGuess: word.guess)
+                    if wordGuess.isUnknown {
+                        guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
+                        return word
+                    }
+                }
+            }
+            return nil
+        }
+    }
+    
+    private func addMissingWord(in wordsStatus: WordsStatus, numberExisting: Int, requiredBalance: Int) {
+        var requiredBalance = requiredBalance - numberExisting //тут еще нужно передавать 18 в случае малознакомых слов
+        var firstSearchGroupWords: WordsStatus = .known
+        var secondSearchGroupWords: WordsStatus = .unknown
+        
+        switch wordsStatus {
+        case .known: firstSearchGroupWords = .littleUnknown; secondSearchGroupWords = .unknown
+        case .littleUnknown: firstSearchGroupWords = .unknown; secondSearchGroupWords = .known
+        case .unknown: firstSearchGroupWords = .littleUnknown; secondSearchGroupWords = .known
+        }
+        
+        while requiredBalance != 0 {
+            let word = configureWord(with: firstSearchGroupWords)
+            guard let word = word else { break } // здесь
+            
+            if word.lastShowTranslation {
+                originalWords.append(word)
+            } else {
+                translations.append(word)
+            }
+            requiredBalance -= 1
+        }
+
+        while requiredBalance != 0 {
+            let word = configureWord(with: secondSearchGroupWords)
+            guard let word = word else { break } // здесь
+            
+            if word.lastShowTranslation {
+                originalWords.append(word)
+            } else {
+                translations.append(word)
+            }
+            requiredBalance -= 1
+        }
+    }
+    
+    private func checkNumberOfWords(_ savedWords: [Words]) {
+        addTrainingWords(from: savedWords)
         
         // проверяем достаточное ли количество известных слов, если нет, то сначала добавляем из малоизвестных, потом из неизвестных
         if knownWords != 6 {
-            var requiredBalance = 6 - knownWords
-            for word in savedWords {
-                if requiredBalance != 0 {
-                    if check(of: word) {
-                        if word.guess > 3 && word.guess <= 17 {
-                            guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
-                            if word.lastShowTranslation {
-                                originalWords.append(word)
-                            } else {
-                                translations.append(word)
-                            }
-                            requiredBalance -= 1
-                        }
-                    }
-                }
-            }
-            if requiredBalance != 0 {
-                for word in savedWords {
-                    if requiredBalance != 0 {
-                        if check(of: word) {
-                            if word.guess <= 3 {
-                                guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
-                                if word.lastShowTranslation {
-                                    originalWords.append(word)
-                                } else {
-                                    translations.append(word)
-                                }
-                                requiredBalance -= 1
-                            }
-                        }
-                    }
-                }
-            }
+            addMissingWord(in: .known, numberExisting: knownWords, requiredBalance: 6)
         }
         
-    //    // проверяем достаточное ли количество неизвестных слов, если нет, то сначала добавляем из малоизвестных, потом из известных
+       // проверяем достаточное ли количество неизвестных слов, если нет, то сначала добавляем из малоизвестных, потом из известных
         if unknownWords != 6 {
-            var requiredBalance = 6 - unknownWords
-            for word in savedWords {
-                if requiredBalance != 0 {
-                    if check(of: word) {
-                        if word.guess > 3 && word.guess <= 17 {
-                            guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
-                            if word.lastShowTranslation {
-                                originalWords.append(word)
-                            } else {
-                                translations.append(word)
-                            }
-                            requiredBalance -= 1
-                        }
-                    }
-                }
-            }
-            if requiredBalance != 0 {
-                for word in savedWords {
-                    if requiredBalance != 0 {
-                        if check(of: word) {
-                            if word.guess > 17 && word.guess <= 25 {
-                                guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
-                                if word.lastShowTranslation {
-                                    originalWords.append(word)
-                                } else {
-                                    translations.append(word)
-                                }
-                                requiredBalance -= 1
-                            }
-                        }
-                    }
-                }
-            }
-            
-            if littleKnownWords != 6 {
-                var requiredBalance = 6 - littleKnownWords
-                for word in savedWords {
-                    if requiredBalance != 0 {
-                        if check(of: word) {
-                            if word.guess <= 3 {
-                                guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
-                                if word.lastShowTranslation {
-                                    originalWords.append(word)
-                                } else {
-                                    translations.append(word)
-                                }
-                                requiredBalance -= 1
-                            }
-                        }
-                    }
-                }
-                if requiredBalance != 0 {
-                    for word in savedWords {
-                        if requiredBalance != 0 {
-                            if check(of: word) {
-                                if word.guess > 17 && word.guess <= 25 {
-                                    guard !translations.contains(where: { word1 in return word == word1 }) && !originalWords.contains(where: { word1 in return word == word1 }) else { continue }
-                                    if word.lastShowTranslation {
-                                        originalWords.append(word)
-                                    } else {
-                                        translations.append(word)
-                                    }
-                                    requiredBalance -= 1
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            addMissingWord(in: .unknown, numberExisting: unknownWords, requiredBalance: 6)
         }
-        return (translations, originalWords)
+      // проверяем достаточное ли количество малоизвестных слов, если нет, то сначала добавляем из неизвестных, а потом из известных
+        if littleKnownWords != 18 {
+            addMissingWord(in: .littleUnknown, numberExisting: unknownWords, requiredBalance: 18)
+        }
     }
     
     private func checkBalanceWords() -> Set<String> {
-        let resultSecondStep = checkNumberOfWords(savedWords)
-        var translations = resultSecondStep.0
-        var originalWords = resultSecondStep.1
+        checkNumberOfWords(savedWords)
         var listTraningWords = Set<String>()
         
         // проверяем баланс переводов и оригинальных слов в массивe
@@ -345,6 +341,8 @@ final class TrainingModel {
                 listTraningWords.insert(word.word)
             }
         
+        translations.removeAll()
+        originalWords.removeAll()
         unknownWords = 0
         littleKnownWords = 0
         knownWords = 0
@@ -385,8 +383,9 @@ final class TrainingModel {
         }
         if Date().isBetween(minDate, maxDate) {
             return true
-        } else if Date() > maxDate {
-            if word.guess > 3 && word.guess <= 17 {
+        } else if Date().isLonger(maxDate) {
+            let wordGuess = Guess(numberGuess: word.guess)
+            if wordGuess.isLittleKnown {
                 if reduceSuccessRate(of: word) == false {
                     delegate?.showSavingChangesError()
                 }
@@ -405,6 +404,9 @@ final class TrainingModel {
                 return Calendar.current.date(byAdding: .day, value: 1, to: word.date!)!
             }
             if Date().componentize() == wordDate.componentize() {
+                return true
+            }
+            if Date().isLonger(wordDate) {
                 return true
             }
         }

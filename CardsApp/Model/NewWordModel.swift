@@ -18,18 +18,6 @@ final class NewWordModel {
         delegate?.showNewWordView()
     }
     
-    private func checkRepeat(word: String) -> Bool {
-        let savedWords = fetchData(CoreData.shared.viewContext)
-        
-        for savedWord in savedWords {
-            if savedWord.word == word {
-                delegate?.showRepeatWordError()
-                return true
-            }
-        }
-        return false
-    }
-    
     func didTapSaveButton() {
         guard let newWord = newWord, let translation = translation else { return }
         guard checkRepeat(word: newWord) == false else { return }
@@ -75,5 +63,17 @@ final class NewWordModel {
         }
         
         return wordsData
+    }
+    
+    private func checkRepeat(word: String) -> Bool {
+        let savedWords = fetchData(CoreData.shared.viewContext)
+        
+        for savedWord in savedWords {
+            if savedWord.word == word {
+                delegate?.showRepeatWordError()
+                return true
+            }
+        }
+        return false
     }
 }
