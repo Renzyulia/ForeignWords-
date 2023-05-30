@@ -61,7 +61,6 @@ final class TrainingView: UIView {
         ])
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnTrainingView))
-        tap.cancelsTouchesInView = false
         addGestureRecognizer(tap)
     }
     
@@ -88,8 +87,11 @@ final class TrainingView: UIView {
         addSubview(knownWordButton)
         addSubview(unknownWordButton)
         
-        knownWordButton.addTarget(self, action: #selector(didTapKnownWordButton), for: .touchUpInside)
-        unknownWordButton.addTarget(self, action: #selector(didTapUnknownWordButton), for: .touchUpInside)
+        let tappedKnownWordButton = UITapGestureRecognizer(target: self, action: #selector(didTapKnownWordButton))
+        knownWordButton.addGestureRecognizer(tappedKnownWordButton)
+        
+        let tappedUnknownWordButton = UITapGestureRecognizer(target: self, action: #selector(didTapUnknownWordButton))
+        unknownWordButton.addGestureRecognizer(tappedUnknownWordButton)
         
         unknownWordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

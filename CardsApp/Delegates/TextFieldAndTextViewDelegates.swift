@@ -42,7 +42,11 @@ final class ContextTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.attributedText = NSAttributedString("")
+        if textView.attributedText == placeholder {
+            textView.attributedText = NSAttributedString("")
+        } else {
+            textView.text = textView.text
+        }
         textView.textColor = .black
         textView.font = .systemFont(ofSize: 16)
     }

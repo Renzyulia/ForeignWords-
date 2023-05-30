@@ -23,6 +23,8 @@ final class TrainingViewController: BaseViewController, TrainingModelDelegate, T
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .lightGray
+        
         let trainingModel = TrainingModel()
         self.trainingModel = trainingModel
         trainingModel.delegate = self
