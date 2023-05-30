@@ -46,7 +46,7 @@ final class NewWordView: UIView {
         
         newWord.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newWord.topAnchor.constraint(equalTo: topAnchor, constant: 200),
+            newWord.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -170),
             newWord.leftAnchor.constraint(equalTo: leftAnchor,constant: 42),
             newWord.rightAnchor.constraint(equalTo: rightAnchor, constant: -42)
         ])

@@ -54,7 +54,7 @@ final class TrainingView: UIView {
         
         wordCard.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            wordCard.topAnchor.constraint(equalTo: topAnchor, constant: 130),
+            wordCard.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -30),
             wordCard.leftAnchor.constraint(equalTo: leftAnchor, constant: 42),
             wordCard.rightAnchor.constraint(equalTo: rightAnchor, constant: -42),
             wordCard.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -180)
@@ -77,7 +77,7 @@ final class TrainingView: UIView {
         
         detailCard.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            detailCard.topAnchor.constraint(equalTo: topAnchor, constant: 130),
+            detailCard.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -30),
             detailCard.leftAnchor.constraint(equalTo: leftAnchor, constant: 42),
             detailCard.rightAnchor.constraint(equalTo: rightAnchor, constant: -42),
             detailCard.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -180)
@@ -95,7 +95,7 @@ final class TrainingView: UIView {
         NSLayoutConstraint.activate([
             unknownWordButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
             unknownWordButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 42),
-            unknownWordButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -210)
+            unknownWordButton.rightAnchor.constraint(equalTo: centerXAnchor, constant: -10)
         ])
         
         knownWordButton.translatesAutoresizingMaskIntoConstraints = false

@@ -44,7 +44,7 @@ final class WordDetailsCardView: UIView {
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             wordLabel.heightAnchor.constraint(equalToConstant: 40),
-            wordLabel.topAnchor.constraint(equalTo: topAnchor, constant: 110),
+            wordLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -140),
             wordLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
             wordLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20)
         ])

@@ -33,7 +33,7 @@ final class MenuView: UIView {
         
         newWordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newWordButton.topAnchor.constraint(equalTo: topAnchor, constant: 330),
+            newWordButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
             newWordButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 60),
             newWordButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -60)
         ])
