@@ -32,9 +32,9 @@ enum WordsStatus {
 final class TrainingModel {
     weak var delegate: TrainingModelDelegate?
     
-    private let coreDataContext = CoreData.shared.viewContext
+    private let storage: Storage
     private var savedWords: [Words] {
-        return fetchData(coreDataContext)
+        return fetchData(storage.viewContext)
     }
     private var trainingWords = Set<String>()
     private var trainingWord: Words? = nil
@@ -44,6 +44,10 @@ final class TrainingModel {
     private var knownWords = 0
     private var translations = [Words]()
     private var originalWords = [Words]()
+  
+    init(storage: Storage) {
+        self.storage = storage
+    }
     
     func viewDidLoad() {
         trainingWords = formTrainingWords(from: savedWords)
@@ -81,10 +85,10 @@ final class TrainingModel {
             }
             
             if word.guess > 25 {
-                coreDataContext.delete(word)
+                storage.viewContext.delete(word)
             }
             
-            try coreDataContext.save()
+            try storage.viewContext.save()
             
             trainingWord = nil
             lastShowWordTranslation = nil
@@ -113,7 +117,7 @@ final class TrainingModel {
                 word.showOriginal += 1
             }
             
-            try coreDataContext.save()
+            try storage.viewContext.save()
             
             trainingWord = nil
             lastShowWordTranslation = nil
@@ -271,7 +275,7 @@ final class TrainingModel {
 
         while requiredBalance != 0 {
             let word = configureWord(with: secondSearchGroupWords)
-            guard let word = word else { break } // здесь
+            guard let word = word else { break }
             
             if word.lastShowTranslation {
                 originalWords.append(word)
@@ -411,14 +415,14 @@ final class TrainingModel {
     
     //метод, чтобы снизить количество угаданных случаев у слова, если человек давно не выполнял тренировку
     private func reduceSuccessRate(of word: Words) -> Bool {
-        let addedWords = fetchData(coreDataContext)
+        let addedWords = fetchData(storage.viewContext)
         var success = false
         
         for addedWord in addedWords { // в списке ищем нужно слово
             if addedWord.word == word.word {
                 do {
                     word.guess -= 2
-                    try coreDataContext.save()
+                    try storage.viewContext.save()
                     success = true
                 } catch {
                     success = false

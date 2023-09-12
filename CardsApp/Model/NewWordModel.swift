@@ -7,12 +7,20 @@
 
 import UIKit
 import CoreData
+import Swinject
 
 final class NewWordModel {
     weak var delegate: NewWordModelDelegate?
     var newWord: String? = nil
     var translation: String? = nil
     var context: String? = nil
+    private var storage: Storage
+    private var logger: LoggerProtocol
+  
+    init(storage: Storage, logger: LoggerProtocol) {
+        self.storage = storage
+        self.logger = logger
+    }
     
     func viewDidLoad() {
         delegate?.showNewWordView()
@@ -22,9 +30,9 @@ final class NewWordModel {
         guard let newWord = newWord, let translation = translation else { return }
         guard checkRepeat(word: newWord) == false else { return }
         
-        let coreDataContext = CoreData.shared.viewContext
+        let coreDataContext = storage.viewContext
+      
         let object = Words(context: coreDataContext)
-        
         object.word = newWord
         object.translation = translation
         object.guess = 0
@@ -66,7 +74,7 @@ final class NewWordModel {
     }
     
     private func checkRepeat(word: String) -> Bool {
-        let savedWords = fetchData(CoreData.shared.viewContext)
+        let savedWords = fetchData(storage.viewContext)
         
         for savedWord in savedWords {
             if savedWord.word == word {

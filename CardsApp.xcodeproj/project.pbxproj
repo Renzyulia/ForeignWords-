@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8458D4E42AB0A8C6006F3022 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458D4E32AB0A8C6006F3022 /* Logger.swift */; };
+		84A55E302AB0550E002EAD9D /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 84A55E2F2AB0550E002EAD9D /* Swinject */; };
+		84A55E322AB0550E002EAD9D /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 84A55E312AB0550E002EAD9D /* Swinject-Dynamic */; };
 		A3023E692A2361D3003170F1 /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E682A2361D3003170F1 /* TrainingViewController.swift */; };
 		A3023E6B2A236295003170F1 /* TrainingModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E6A2A236295003170F1 /* TrainingModelDelegate.swift */; };
 		A3023E6D2A2384D7003170F1 /* TrainingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3023E6C2A2384D7003170F1 /* TrainingViewDelegate.swift */; };
@@ -41,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8458D4E32AB0A8C6006F3022 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A3023E682A2361D3003170F1 /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
 		A3023E6A2A236295003170F1 /* TrainingModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingModelDelegate.swift; sourceTree = "<group>"; };
 		A3023E6C2A2384D7003170F1 /* TrainingViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewDelegate.swift; sourceTree = "<group>"; };
@@ -81,12 +85,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A55E302AB0550E002EAD9D /* Swinject in Frameworks */,
+				84A55E322AB0550E002EAD9D /* Swinject-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8458D4E12AB0A8A1006F3022 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8458D4E22AB0A8AF006F3022 /* Logger */,
+				A347A0062A0971E800F94761 /* CoreData */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		8458D4E22AB0A8AF006F3022 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				8458D4E32AB0A8C6006F3022 /* Logger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
 		A347A0012A09597E00F94761 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,9 +211,9 @@
 		A3840B6A29F00228004B77D3 /* CardsApp */ = {
 			isa = PBXGroup;
 			children = (
+				8458D4E12AB0A8A1006F3022 /* Service */,
 				A3E44F6D2A1B8ABB00665AEE /* Extensions */,
 				A37898C32A0CED340068DCE9 /* CommonViews */,
-				A347A0062A0971E800F94761 /* CoreData */,
 				A347A0012A09597E00F94761 /* Delegates */,
 				A3840B8529F00FF8004B77D3 /* View */,
 				A347A0022A09599C00F94761 /* ViewController */,
@@ -254,6 +277,10 @@
 			dependencies = (
 			);
 			name = CardsApp;
+			packageProductDependencies = (
+				84A55E2F2AB0550E002EAD9D /* Swinject */,
+				84A55E312AB0550E002EAD9D /* Swinject-Dynamic */,
+			);
 			productName = CardsApp;
 			productReference = A3840B6829F00228004B77D3 /* CardsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -282,6 +309,9 @@
 				Base,
 			);
 			mainGroup = A3840B5F29F00228004B77D3;
+			packageReferences = (
+				84A55E2E2AB0550E002EAD9D /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			productRefGroup = A3840B6929F00228004B77D3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -333,6 +363,7 @@
 				A3840B8129F003EF004B77D3 /* MenuView.swift in Sources */,
 				A347A00F2A0972F400F94761 /* CoreData.swift in Sources */,
 				A3023E712A239BB3003170F1 /* MenuViewController.swift in Sources */,
+				8458D4E42AB0A8C6006F3022 /* Logger.swift in Sources */,
 				A3840B6E29F00228004B77D3 /* SceneDelegate.swift in Sources */,
 				A3C402AB2A029355007491CD /* NewWordModelDelegate.swift in Sources */,
 				A3023E692A2361D3003170F1 /* TrainingViewController.swift in Sources */,
@@ -542,6 +573,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84A55E2E2AB0550E002EAD9D /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84A55E2F2AB0550E002EAD9D /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84A55E2E2AB0550E002EAD9D /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		84A55E312AB0550E002EAD9D /* Swinject-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84A55E2E2AB0550E002EAD9D /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = "Swinject-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A347A0072A09720F00F94761 /* CoreDataModel.xcdatamodeld */ = {

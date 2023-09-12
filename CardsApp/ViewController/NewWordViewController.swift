@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import Swinject
 
 final class NewWordViewController: BaseViewController, NewWordModelDelegate, NewWordViewDelegate {
     weak var delegate: NewWordAndTrainingViewControllersDelegate?
     var newWordModel: NewWordModel? = nil
     var newWordView: NewWordView? = nil
+    private let container: Resolver
     
-    init() {
+    init(container: Resolver) {
+        self.container = container
         super.init(navigationBarVisibility: false)
     }
     
@@ -24,8 +27,14 @@ final class NewWordViewController: BaseViewController, NewWordModelDelegate, New
         super.viewDidLoad()
         
         addTapGestureToHideKeyboard()
+      
+      
+      // MARK: For practice to injecting DI by Swinject
+      let someString = "SomeString"
+      let titleScreen = "Screen"
         
-        let newWordModel = NewWordModel()
+      let newWordModel = NewWordModel(storage: container.resolve(Storage.self)!,
+                                      logger: container.resolve(LoggerProtocol.self, arguments: someString, titleScreen)!)
         self.newWordModel = newWordModel
         newWordModel.delegate = self
         

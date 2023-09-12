@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import Swinject
 
 final class TrainingViewController: BaseViewController, TrainingModelDelegate, TrainingViewDelegate {
     weak var delegate: NewWordAndTrainingViewControllersDelegate?
     var trainingModel: TrainingModel? = nil
     var trainingView: TrainingView? = nil
+    private var container: Container
     
-    init() {
+    init(container: Container) {
+        self.container = container
         super.init(navigationBarVisibility: false)
     }
     
@@ -25,7 +28,7 @@ final class TrainingViewController: BaseViewController, TrainingModelDelegate, T
         
         view.backgroundColor = .lightGray
         
-        let trainingModel = TrainingModel()
+      let trainingModel = TrainingModel(storage: container.resolve(Storage.self)!)
         self.trainingModel = trainingModel
         trainingModel.delegate = self
         

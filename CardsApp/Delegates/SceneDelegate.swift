@@ -1,21 +1,24 @@
-//
-//  SceneDelegate.swift
-//  CardsApp
-//
-//  Created by Yulia Ignateva on 19.04.2023.
-//
-
 import UIKit
+import Swinject
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+  
+    let container: Container = {
+        let container = Container()
+        container.register(Storage.self) { _ in CoreData() }.inObjectScope(.container)
+        container.register(NumberProtocol.self) { _ in Number(number: 10) }
+        container.register(LoggerProtocol.self) { (resolver: Resolver, someString: String, titleString: String) in
+            Logger(number: resolver.resolve(NumberProtocol.self)!, someString: someString, titleScreen: titleString) }
+            return container
+    }()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        
-        let menuViewController = MenuViewController()
+
+        let menuViewController = MenuViewController(container: container)
         let navigationController = UINavigationController(rootViewController: menuViewController)
         window.rootViewController = navigationController
         
@@ -24,7 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

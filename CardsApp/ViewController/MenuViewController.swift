@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Swinject
 
 final class MenuViewController: BaseViewController, MenuViewDelegate, NewWordAndTrainingViewControllersDelegate {
     var menuView: MenuView? = nil
+    private var container: Container
     
-    init() {
+    init(container: Container) {
+        self.container = container
         super.init(navigationBarVisibility: true)
     }
     
@@ -37,13 +40,13 @@ final class MenuViewController: BaseViewController, MenuViewDelegate, NewWordAnd
     }
     
     func didTapNewWordButton() {
-        let newWordViewController = NewWordViewController()
+        let newWordViewController = NewWordViewController(container: container)
         newWordViewController.delegate = self
         navigationController?.pushViewController(newWordViewController, animated: true)
     }
     
     func didTapTrainingButton() {
-        let trainingViewController = TrainingViewController()
+        let trainingViewController = TrainingViewController(container: container)
         trainingViewController.delegate = self
         navigationController?.pushViewController(trainingViewController, animated: true)
     }
